@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, User } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -29,12 +31,10 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}>
       <nav className="flex items-center justify-between px-6 md:px-12 py-4">
-        {/* Logo */}
         <Link to="/" className="font-serif text-xl md:text-2xl tracking-[0.1em] text-foreground">
           MAISON
         </Link>
 
-        {/* Center Nav */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <Link
@@ -47,7 +47,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right */}
         <div className="flex items-center gap-5">
           <div className="relative">
             {searchOpen ? (
@@ -64,12 +63,17 @@ const Navbar = () => {
               </button>
             )}
           </div>
-          <Link to="/cart" className="text-foreground/70 hover:text-foreground transition-colors">
+          <Link to="/cart" className="relative text-foreground/70 hover:text-foreground transition-colors">
             <ShoppingBag size={18} strokeWidth={1.5} />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 w-4 h-4 bg-foreground text-background text-[10px] font-sans flex items-center justify-center rounded-full">
+                {totalItems}
+              </span>
+            )}
           </Link>
-          <button className="text-foreground/70 hover:text-foreground transition-colors">
+          <Link to="/login" className="text-foreground/70 hover:text-foreground transition-colors">
             <User size={18} strokeWidth={1.5} />
-          </button>
+          </Link>
         </div>
       </nav>
     </header>

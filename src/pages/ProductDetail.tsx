@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
+import { useCart } from "@/contexts/CartContext";
+import AddToCartModal from "@/components/AddToCartModal";
 import { Minus, Plus } from "lucide-react";
 
 const ProductDetail = () => {
@@ -13,6 +15,8 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [openSection, setOpenSection] = useState<string | null>("details");
+  const [modalOpen, setModalOpen] = useState(false);
+  const { addItem } = useCart();
 
   if (!product) {
     return (
@@ -26,11 +30,20 @@ const ProductDetail = () => {
     setOpenSection(openSection === section ? null : section);
   };
 
+  const handleAddToCart = () => {
+    addItem({
+      product,
+      size: selectedSize || product.sizes[0],
+      color: product.colors[selectedColor].name,
+      quantity,
+    });
+    setModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
       <div className="pt-24 px-6 md:px-12 pb-20">
-        {/* Breadcrumb */}
         <div className="flex gap-2 text-xs text-muted-foreground font-sans mb-8">
           <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
@@ -40,7 +53,6 @@ const ProductDetail = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-          {/* Images */}
           <div>
             <div className="aspect-[3/4] bg-secondary overflow-hidden mb-4">
               <img src={product.image} alt={product.name} width={900} height={1200} className="w-full h-full object-cover" />
@@ -60,14 +72,12 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Info */}
           <div className="md:pt-8">
             <p className="editorial-subheading mb-2">{product.brand}</p>
             <h1 className="editorial-heading text-3xl md:text-4xl mb-4">{product.name}</h1>
             <p className="text-lg font-sans mb-8">${product.price}</p>
             <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">{product.description}</p>
 
-            {/* Size */}
             <div className="mb-8">
               <h4 className="text-xs uppercase tracking-[0.2em] font-sans mb-3">Size</h4>
               <div className="flex gap-2">
@@ -87,7 +97,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Color */}
             <div className="mb-8">
               <h4 className="text-xs uppercase tracking-[0.2em] font-sans mb-3">
                 Color — {product.colors[selectedColor].name}
@@ -106,7 +115,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Quantity */}
             <div className="mb-10">
               <h4 className="text-xs uppercase tracking-[0.2em] font-sans mb-3">Quantity</h4>
               <div className="flex items-center border border-border w-fit">
@@ -120,11 +128,10 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <Button variant="editorial" size="lg" className="w-full mb-4">
+            <Button variant="editorial" size="lg" className="w-full mb-4" onClick={handleAddToCart}>
               Add to Cart
             </Button>
 
-            {/* Accordion sections */}
             <div className="mt-12 border-t border-border">
               {[
                 { key: "details", title: "Product Details", content: product.description },
@@ -151,6 +158,7 @@ const ProductDetail = () => {
         </div>
       </div>
       <Footer />
+      <AddToCartModal open={modalOpen} onClose={() => setModalOpen(false)} productName={product.name} />
     </div>
   );
 };
