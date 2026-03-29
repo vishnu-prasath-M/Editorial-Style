@@ -2,16 +2,11 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/products";
+import { useCart } from "@/contexts/CartContext";
 import { Minus, Plus, X } from "lucide-react";
 
-const cartItems = [
-  { product: products[0], size: "M", color: "Cream", quantity: 1 },
-  { product: products[2], size: "L", color: "White", quantity: 2 },
-];
-
 const Cart = () => {
-  const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const { items, removeItem, updateQuantity, subtotal } = useCart();
 
   return (
     <div className="min-h-screen">
@@ -19,7 +14,7 @@ const Cart = () => {
       <div className="pt-24 px-6 md:px-12 pb-20 max-w-4xl mx-auto">
         <h1 className="editorial-heading text-4xl md:text-5xl mb-12">Your Bag</h1>
 
-        {cartItems.length === 0 ? (
+        {items.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-muted-foreground font-sans mb-6">Your bag is empty.</p>
             <Button variant="editorial" asChild>
@@ -29,7 +24,7 @@ const Cart = () => {
         ) : (
           <>
             <div className="border-t border-border">
-              {cartItems.map((item, i) => (
+              {items.map((item, i) => (
                 <div key={i} className="flex gap-6 py-8 border-b border-border">
                   <Link to={`/product/${item.product.id}`} className="w-24 md:w-32 aspect-[3/4] bg-secondary shrink-0 overflow-hidden">
                     <img src={item.product.image} alt={item.product.name} loading="lazy" className="w-full h-full object-cover" />
@@ -43,18 +38,18 @@ const Cart = () => {
                             {item.color} / {item.size}
                           </p>
                         </div>
-                        <button className="text-muted-foreground hover:text-foreground transition-colors">
+                        <button onClick={() => removeItem(i)} className="text-muted-foreground hover:text-foreground transition-colors">
                           <X size={16} />
                         </button>
                       </div>
                     </div>
                     <div className="flex justify-between items-end">
                       <div className="flex items-center border border-border">
-                        <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
+                        <button onClick={() => updateQuantity(i, item.quantity - 1)} className="p-2 text-muted-foreground hover:text-foreground transition-colors">
                           <Minus size={12} />
                         </button>
                         <span className="px-4 text-xs font-sans">{item.quantity}</span>
-                        <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
+                        <button onClick={() => updateQuantity(i, item.quantity + 1)} className="p-2 text-muted-foreground hover:text-foreground transition-colors">
                           <Plus size={12} />
                         </button>
                       </div>
