@@ -7,21 +7,19 @@ import AddToCartModal from "./AddToCartModal";
 
 const NewCollectionGrid = () => {
   const { addItem } = useCart();
-  const [modalProduct, setModalProduct] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalProductName, setModalProductName] = useState("");
   const displayProducts = products.slice(0, 6);
 
   const handleAddToCart = (product: typeof products[0]) => {
     addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
+      product,
       quantity: 1,
       size: "M",
-      color: "Default",
+      color: product.colors[0] || "Default",
     });
-    setModalProduct(product.name);
-    setTimeout(() => setModalProduct(null), 2000);
+    setModalProductName(product.name);
+    setModalOpen(true);
   };
 
   // Fake original prices (30% higher)
