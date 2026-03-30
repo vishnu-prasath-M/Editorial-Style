@@ -4,8 +4,7 @@ import heroModel from "@/assets/hero-model.jpg";
 
 const HeroFullImage = () => {
   return (
-    <section className="relative w-full h-[85vh] md:h-[90vh] overflow-hidden">
-      {/* Background Image */}
+    <section className="relative w-full h-screen overflow-hidden">
       <img
         src={heroModel}
         alt="Fashion model in trendy outfit"
@@ -14,11 +13,9 @@ const HeroFullImage = () => {
         className="absolute inset-0 w-full h-full object-cover object-top"
       />
 
-      {/* Subtle overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-foreground/30 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-foreground/10 to-transparent" />
 
-      {/* Left-aligned text overlay */}
-      <div className="relative h-full flex flex-col justify-end pb-20 md:pb-28 px-6 md:px-12 max-w-[1400px] mx-auto">
+      <div className="relative h-full flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-12 max-w-[1400px] mx-auto">
         <div className="max-w-lg">
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight leading-[1.05] text-white mb-5">
             Redefine Your<br />Style & Attitude
@@ -35,8 +32,8 @@ const HeroFullImage = () => {
         </div>
       </div>
 
-      {/* Frosted widget - bottom right */}
-      <div className="absolute bottom-16 right-6 md:right-12 w-56 md:w-64 bg-white/15 backdrop-blur-xl rounded-2xl p-5 border border-white/20">
+      {/* Frosted widget */}
+      <div className="absolute bottom-20 right-6 md:right-12 w-56 md:w-64 bg-white/15 backdrop-blur-xl rounded-2xl p-5 border border-white/20">
         <p className="text-[10px] font-sans uppercase tracking-[0.2em] text-white/60 mb-2">
           Trending Styles
         </p>
@@ -48,10 +45,10 @@ const HeroFullImage = () => {
         </p>
       </div>
 
-      {/* Floating orange CTA button - bottom center */}
+      {/* Orange CTA */}
       <Link
         to="/products"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-[hsl(25,90%,55%)] flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-20"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-[hsl(25,90%,55%)] flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-20"
       >
         <Plus size={24} className="text-white" />
       </Link>
