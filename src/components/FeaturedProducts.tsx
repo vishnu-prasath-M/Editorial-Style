@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { products } from "@/data/products";
+import ProductCard from "./ProductCard";
+import { useState } from "react";
+import AddToCartModal from "./AddToCartModal";
 
 const FeaturedProducts = () => {
   const featured = products.slice(0, 4);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalProductName, setModalProductName] = useState("");
 
   return (
-    <section className="px-6 md:px-12 py-20 md:py-32">
+    <section className="px-6 md:px-12 py-20 md:py-32 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-end mb-16">
         <div>
           <p className="editorial-subheading mb-4">Curated</p>
@@ -18,22 +23,15 @@ const FeaturedProducts = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {featured.map((product) => (
-          <Link key={product.id} to={`/product/${product.id}`} className="group">
-            <div className="aspect-[3/4] overflow-hidden mb-4 bg-secondary">
-              <img
-                src={product.image}
-                alt={product.name}
-                loading="lazy"
-                width={900}
-                height={1200}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <h3 className="text-sm font-sans font-normal mb-1 text-foreground">{product.name}</h3>
-            <p className="text-sm text-muted-foreground font-sans">${product.price}</p>
-          </Link>
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddedToCart={(name) => { setModalProductName(name); setModalOpen(true); }}
+          />
         ))}
       </div>
+
+      <AddToCartModal open={modalOpen} onClose={() => setModalOpen(false)} productName={modalProductName} />
     </section>
   );
 };
