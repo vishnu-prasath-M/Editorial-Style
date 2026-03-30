@@ -113,12 +113,11 @@ const NewCollectionGrid = () => {
         })}
       </div>
 
-      {modalProduct && (
-        <AddToCartModal
-          productName={modalProduct}
-          onClose={() => setModalProduct(null)}
-        />
-      )}
+      <AddToCartModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        productName={modalProductName}
+      />
     </section>
   );
 };
