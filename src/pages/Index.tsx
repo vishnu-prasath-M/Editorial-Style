@@ -1,9 +1,9 @@
 import FaboraHeader from "@/components/FaboraHeader";
-import HeroBentoGrid from "@/components/HeroBentoGrid";
+import HeroFullImage from "@/components/HeroFullImage";
 import ProductLooksCarousel from "@/components/ProductLooksCarousel";
-import CampaignBanner from "@/components/CampaignBanner";
+import NewCollectionGrid from "@/components/NewCollectionGrid";
+import WinterSaleBanner from "@/components/WinterSaleBanner";
 import CategoryGrid from "@/components/CategoryGrid";
-import BentoGrid from "@/components/BentoGrid";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import NewArrivals from "@/components/NewArrivals";
 import WhyChooseUs from "@/components/WhyChooseUs";
@@ -15,11 +15,11 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <FaboraHeader />
       <main>
-        <HeroBentoGrid />
+        <HeroFullImage />
         <ProductLooksCarousel />
-        <CampaignBanner />
+        <NewCollectionGrid />
+        <WinterSaleBanner />
         <CategoryGrid />
-        <BentoGrid />
         <NewArrivals />
         <FeaturedProducts />
         <WhyChooseUs />
