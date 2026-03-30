@@ -16,7 +16,7 @@ const NewCollectionGrid = () => {
       product,
       quantity: 1,
       size: "M",
-      color: product.colors[0] || "Default",
+      color: typeof product.colors[0] === 'string' ? product.colors[0] : product.colors[0]?.name || "Default",
     });
     setModalProductName(product.name);
     setModalOpen(true);
