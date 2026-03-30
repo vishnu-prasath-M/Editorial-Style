@@ -1,5 +1,6 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
+import FaboraHeader from "@/components/FaboraHeader";
+import HeroBentoGrid from "@/components/HeroBentoGrid";
+import ProductLooksCarousel from "@/components/ProductLooksCarousel";
 import CampaignBanner from "@/components/CampaignBanner";
 import CategoryGrid from "@/components/CategoryGrid";
 import BentoGrid from "@/components/BentoGrid";
@@ -11,10 +12,11 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <div className="min-h-screen bg-background">
+      <FaboraHeader />
       <main>
-        <HeroSection />
+        <HeroBentoGrid />
+        <ProductLooksCarousel />
         <CampaignBanner />
         <CategoryGrid />
         <BentoGrid />
