@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import FaboraHeader from "@/components/FaboraHeader";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import AddToCartModal from "@/components/AddToCartModal";
 import { products } from "@/data/products";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, ChevronRight } from "lucide-react";
 
 const sizeOptions = ["XS", "S", "M", "L", "XL"];
 const colorOptions = [
@@ -33,7 +33,47 @@ const Products = () => {
   return (
     <div className="min-h-screen">
       <FaboraHeader />
-      <div className="pt-24 px-6 md:px-12 pb-20 max-w-[1400px] mx-auto">
+      
+      {/* Collection Banner */}
+      <div className="pt-24 px-6 md:px-12 max-w-[1400px] mx-auto">
+        <div className="bg-[#f5f5f5] rounded-2xl overflow-hidden">
+          <div className="flex flex-col md:flex-row items-center">
+            {/* Left - Realistic Image */}
+            <div className="w-full md:w-1/2 h-48 md:h-64 relative overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80" 
+                alt="Wink Collection - Clothes on hangers"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#f5f5f5]/20" />
+            </div>
+            
+            {/* Right - Content */}
+            <div className="w-full md:w-1/2 p-8 md:p-12">
+              <span className="text-xs text-gray-500 tracking-wide">- Collections</span>
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mt-2 leading-tight">
+                Explore The Various Collection<br />of Wink Collection
+              </h2>
+              <p className="text-sm text-gray-500 mt-3 leading-relaxed">
+                Don't miss out to shopping collection from us!<br />
+                you'll not be let down.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 mt-6 text-sm">
+          <Link to="/" className="text-gray-500 hover:text-gray-900 transition-colors">Home</Link>
+          <ChevronRight className="w-4 h-4 text-gray-400" />
+          <span className="text-gray-900 font-medium">Wink Collection</span>
+        </div>
+        
+        {/* Collection Title */}
+        <h2 className="text-xl font-semibold text-gray-900 mt-2 mb-8">Wink Collection</h2>
+      </div>
+      
+      <div className="pt-8 pb-20 px-6 md:px-12 max-w-[1400px] mx-auto">
         <h1 className="editorial-heading text-4xl md:text-6xl mb-4">All Products</h1>
         <p className="text-sm text-muted-foreground font-sans mb-12">{filtered.length} pieces</p>
 

@@ -84,7 +84,7 @@ const ProductCard = ({ product, featured = false, onAddedToCart }: ProductCardPr
 
       {/* Card footer */}
       <div className="mt-3 flex items-start justify-between">
-        <div>
+        <div className="flex-1">
           <h3 className="font-serif text-sm md:text-base font-semibold text-foreground uppercase tracking-wide">
             {product.name}
           </h3>
@@ -97,7 +97,7 @@ const ProductCard = ({ product, featured = false, onAddedToCart }: ProductCardPr
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-1 mt-1">
+        <div className="flex items-center gap-1 mt-1 ml-2">
           <Star size={12} className="text-[hsl(45,100%,50%)] fill-[hsl(45,100%,50%)]" />
           <span className="text-xs font-sans text-muted-foreground">
             {String(reviews).padStart(2, "0")}

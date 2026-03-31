@@ -20,8 +20,8 @@ const features = [
 const WhyChooseUs = () => {
   return (
     <section className="px-6 md:px-12 py-20 md:py-32 bg-secondary">
-      <p className="editorial-subheading text-center mb-4">Why MAISON</p>
-      <h2 className="editorial-heading text-3xl md:text-5xl text-center mb-16">The MAISON Difference</h2>
+      <p className="editorial-subheading text-center mb-4">Why Fabora</p>
+      <h2 className="editorial-heading text-3xl md:text-5xl text-center mb-16">The Fabora Difference</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-5xl mx-auto">
         {features.map((feature) => (
           <div key={feature.title} className="text-center">

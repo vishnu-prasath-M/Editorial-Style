@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, User } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -31,8 +32,8 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}>
       <nav className="flex items-center justify-between px-6 md:px-12 py-4">
-        <Link to="/" className="font-serif text-xl md:text-2xl tracking-[0.1em] text-foreground">
-          MAISON
+        <Link to="/" className="flex items-center transition-opacity hover:opacity-80">
+          <img src={mylogo} alt="Fabora Logo" className="h-5 md:h-7 w-auto object-contain" />
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, User } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import mylogo from "@/assets/mylogo.png";
 
 const FaboraHeader = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -37,11 +38,14 @@ const FaboraHeader = () => {
         {/* Logo */}
         <Link
           to="/"
-          className={`font-serif text-2xl md:text-3xl tracking-[0.15em] font-semibold transition-colors duration-500 ${
-            showBg ? "text-foreground" : "text-white"
-          }`}
+          className={`flex items-center transition-opacity hover:opacity-80`}
         >
-          FABORA
+          <img 
+            src={mylogo} 
+            alt="Fabora Logo" 
+            className="h-6 md:h-8 w-auto object-contain transition-all duration-500"
+            style={{ filter: showBg ? 'none' : 'brightness(0) invert(1)' }}
+          />
         </Link>
 
         {/* Center Links */}

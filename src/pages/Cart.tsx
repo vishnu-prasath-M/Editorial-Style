@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Navbar from "@/components/Navbar";
+import FaboraHeader from "@/components/FaboraHeader";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
@@ -10,7 +10,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <FaboraHeader />
       <div className="pt-24 px-6 md:px-12 pb-20 max-w-4xl mx-auto">
         <h1 className="editorial-heading text-4xl md:text-5xl mb-12">Your Bag</h1>
 

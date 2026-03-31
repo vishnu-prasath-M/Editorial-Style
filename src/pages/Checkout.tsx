@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import FaboraHeader from "@/components/FaboraHeader";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
@@ -15,7 +15,7 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <FaboraHeader />
       <div className="pt-24 px-6 md:px-12 pb-20 max-w-5xl mx-auto">
         <h1 className="editorial-heading text-4xl md:text-5xl mb-12">Checkout</h1>
 
