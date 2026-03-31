@@ -19,11 +19,13 @@ const Index = () => {
       <main>
         <HeroFullImage />
         <ProductLooksCarousel />
+        <SignatureCollection />
         <NewCollectionGrid />
         <WinterSaleBanner />
         <CategoryGrid />
         <NewArrivals />
         <FeaturedProducts />
+        <EmbraceComfortStyle />
         <WhyChooseUs />
         <LookbookGrid />
       </main>
