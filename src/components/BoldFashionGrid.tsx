@@ -178,10 +178,6 @@ const BoldFashionGrid = () => {
         </div>
       </div>
 
-      {/* Far-right sunglasses panel - overlapping */}
-      <div className="hidden md:block absolute right-4 md:right-10 top-[50%] -translate-y-1/2 w-[180px] h-[380px] rounded-[1.5rem] overflow-hidden group z-10" style={{ position: 'relative', marginTop: '-380px', marginLeft: 'auto', width: '180px' }}>
-        {/* This is handled by the grid above */}
-      </div>
     </section>
   );
 };
