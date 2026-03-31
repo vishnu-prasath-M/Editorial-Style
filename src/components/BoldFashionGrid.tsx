@@ -63,36 +63,28 @@ const BoldFashionGrid = () => {
         </div>
       </div>
 
-      {/* 7-Panel Bento Grid */}
-      <div className="grid grid-cols-4 md:grid-cols-12 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[200px]">
-        {/* 1. Orange model - tall left */}
-        <div className="col-span-2 md:col-span-3 row-span-2 rounded-[1.5rem] overflow-hidden relative group">
-          <img
-            src={orangeModel}
-            alt="Orange streetwear"
-            loading="lazy"
-            width={640}
-            height={896}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
+      {/* 5-Column Staggered Grid */}
+      <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center mt-8 md:mt-12 h-auto md:h-[600px] w-full">
+        {/* Column 1: Orange & Clown */}
+        <div className="flex flex-col gap-3 md:gap-4 w-full md:w-[20%] h-full">
+          <div className="rounded-[1.5rem] overflow-hidden relative group h-[300px] md:h-[60%] w-full" style={{ borderTopRightRadius: '3rem' }}>
+            <img src={orangeModel} alt="Orange streetwear" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div className="rounded-[1.5rem] overflow-hidden relative group h-[200px] md:h-[40%] w-full">
+            <img src={clownModel} alt="Colorful fashion" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
         </div>
 
-        {/* 2. Green trench model - tall */}
-        <div className="col-span-2 md:col-span-3 row-span-2 rounded-[1.5rem] overflow-hidden relative group">
-          <img
-            src={greenModel}
-            alt="Green trench coat"
-            loading="lazy"
-            width={640}
-            height={896}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
+        {/* Column 2: Green */}
+        <div className="flex flex-col gap-3 md:gap-4 w-full md:w-[20%] h-full md:pt-12 md:pb-6">
+          <div className="rounded-[1.5rem] overflow-hidden relative group h-[400px] md:h-full w-full" style={{ borderTopRightRadius: '3rem' }}>
+            <img src={greenModel} alt="Green trench coat" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
         </div>
 
-        {/* 3. Yellow hat model - center with sun icon */}
-        <div className="col-span-2 md:col-span-3 row-span-2 relative flex flex-col items-center">
-          {/* Sun/snowflake icon */}
-          <div className="mb-2 flex items-center justify-center">
+        {/* Column 3: Yellow & Button */}
+        <div className="flex flex-col gap-3 md:gap-4 w-full md:w-[20%] h-full justify-center items-center">
+          <div className="flex items-center justify-center mb-1">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" className="text-[hsl(25,100%,55%)]">
               <circle cx="14" cy="14" r="5" fill="currentColor" />
               {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
@@ -109,72 +101,35 @@ const BoldFashionGrid = () => {
               ))}
             </svg>
           </div>
-          <div className="flex-1 w-full rounded-[1.5rem] overflow-hidden relative group">
-            <img
-              src={yellowModel}
-              alt="Yellow hat fashion"
-              loading="lazy"
-              width={640}
-              height={768}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+          <div className="rounded-[1.5rem] overflow-hidden relative group w-full h-[300px] md:h-[50%]">
+            <img src={yellowModel} alt="Yellow hat fashion" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div className="mt-2 text-center w-full flex justify-center">
+            <Link
+              to="/products"
+              className="inline-flex items-center justify-center gap-2 bg-foreground text-background font-sans font-medium text-sm md:text-base px-6 py-3.5 rounded-full hover:bg-foreground/90 transition-colors w-[90%]"
+            >
+              Explore Collections
+              <ArrowUpRight size={18} />
+            </Link>
           </div>
         </div>
 
-        {/* 4. Blue model - tall */}
-        <div className="col-span-2 md:col-span-3 row-span-2 rounded-[1.5rem] overflow-hidden relative group hidden md:block">
-          <img
-            src={blueModel}
-            alt="Blue futuristic outfit"
-            loading="lazy"
-            width={640}
-            height={896}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        </div>
-
-        {/* Bottom row: clown model (small), CTA button, sunglasses model (overlapping right) */}
-      </div>
-
-      {/* Bottom section with CTA and small panels */}
-      <div className="relative mt-3 md:mt-4 grid grid-cols-4 md:grid-cols-12 gap-3 md:gap-4">
-        {/* Bottom-left: Clown model small panel */}
-        <div className="col-span-2 md:col-span-2 h-[140px] md:h-[160px] rounded-[1.5rem] overflow-hidden relative group">
-          <img
-            src={clownModel}
-            alt="Colorful fashion"
-            loading="lazy"
-            width={512}
-            height={640}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          {/* Play icon overlay */}
-          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-foreground/60 backdrop-blur-sm flex items-center justify-center">
-            <Play size={12} className="text-background ml-0.5" fill="currentColor" />
+        {/* Column 4: Blue */}
+        <div className="flex flex-col gap-3 md:gap-4 w-full md:w-[20%] h-full md:pt-8 md:pb-10">
+          <div className="rounded-[1.5rem] overflow-hidden relative group h-[400px] md:h-full w-full" style={{ borderTopLeftRadius: '3rem' }}>
+            <img src={blueModel} alt="Blue futuristic outfit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
         </div>
 
-        {/* Center CTA Button */}
-        <div className="col-span-4 md:col-span-8 flex items-center justify-center">
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-3 bg-foreground text-background font-sans text-sm md:text-base px-8 py-4 rounded-full hover:bg-foreground/90 transition-colors"
-          >
-            Explore Collections
-            <ArrowUpRight size={18} />
-          </Link>
-        </div>
-
-        {/* Bottom-right: Teal model small panel */}
-        <div className="col-span-2 md:col-span-2 h-[140px] md:h-[160px] rounded-[1.5rem] overflow-hidden relative group hidden md:block">
-          <img
-            src={tealModel}
-            alt="Teal jacket fashion"
-            loading="lazy"
-            width={512}
-            height={640}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
+        {/* Column 5: Sunglasses & Teal */}
+        <div className="flex flex-col gap-3 md:gap-4 w-full md:w-[20%] h-full md:-mt-8">
+          <div className="rounded-[1.5rem] overflow-hidden relative group h-[300px] md:h-[55%] w-full" style={{ borderTopLeftRadius: '3rem' }}>
+            <img src={sunglassesModel} alt="Sunglasses fashion" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <div className="rounded-[1.5rem] overflow-hidden relative group h-[200px] md:h-[45%] w-full">
+            <img src={tealModel} alt="Teal jacket fashion" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+          </div>
         </div>
       </div>
 
