@@ -33,7 +33,7 @@ const Navbar = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}>
       <nav className="flex items-center justify-between px-6 md:px-12 py-4">
         <Link to="/" className="flex items-center transition-opacity hover:opacity-80">
-          <img src={mylogo} alt="Fabora Logo" className="h-5 md:h-7 w-auto object-contain" />
+          <img src={logo} alt="Fabora Logo" className="h-5 md:h-7 w-auto object-contain" />
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
