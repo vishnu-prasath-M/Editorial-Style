@@ -22,11 +22,10 @@ const Navbar = () => {
     : "bg-transparent";
 
   const links = [
+    { label: "Explore Collections", to: "/products" },
+    { label: "Best Seller", to: "/products?filter=bestseller" },
     { label: "Men", to: "/products?category=Men" },
     { label: "Women", to: "/products?category=Women" },
-    { label: "Kids", to: "/products?category=Kids" },
-    { label: "New Arrivals", to: "/products" },
-    { label: "Accessories", to: "/products?category=Accessories" },
   ];
 
   return (

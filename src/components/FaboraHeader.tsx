@@ -18,13 +18,20 @@ const FaboraHeader = () => {
   }, []);
 
   const links = [
-    { label: "New In", to: "/products" },
-    { label: "Best Sellers", to: "/products?category=Women" },
-    { label: "Style Feed", to: "/products?category=Men" },
-    { label: "Offers", to: "/products?category=Kids" },
+    { label: "Explore Collections", to: "/products" },
+    { label: "Best Seller", to: "/products?filter=bestseller" },
+    { label: "Men", to: "/products?category=Men" },
+    { label: "Women", to: "/products?category=Women" },
   ];
 
-  const showBg = scrolled || !isHome;
+  const isLinkActive = (to: string) => {
+    if (to === "/products") {
+      return location.pathname === "/products" && !location.search;
+    }
+    return location.pathname + location.search === to;
+  };
+
+  const showBg = (scrolled || !isHome) && location.pathname !== "/login";
 
   return (
     <header
@@ -50,19 +57,26 @@ const FaboraHeader = () => {
 
         {/* Center Links */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
-            <Link
-              key={link.label}
-              to={link.to}
-              className={`text-sm font-sans transition-colors duration-300 tracking-wide ${
-                showBg
-                  ? "text-foreground/70 hover:text-foreground"
-                  : "text-white/70 hover:text-white"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isActive = isLinkActive(link.to);
+            return (
+              <Link
+                key={link.label}
+                to={link.to}
+                className={`text-sm font-sans transition-colors duration-300 tracking-wide relative ${
+                  showBg
+                    ? isActive
+                      ? "text-foreground font-medium"
+                      : "text-foreground/70 hover:text-foreground"
+                    : isActive
+                      ? "text-white font-medium"
+                      : "text-white/70 hover:text-white"
+                } ${isActive ? "after:content-[''] after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-[2px] after:bg-current" : ""}`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right: Search + Cart + Profile */}

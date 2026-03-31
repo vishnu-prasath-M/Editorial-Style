@@ -1,248 +1,162 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FaboraHeader from "@/components/FaboraHeader";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
+import { Eye, EyeOff, Github, Chrome } from "lucide-react";
+import loginIllustrationDark from "@/assets/login-illustration-dark.png";
+import mylogo from "@/assets/mylogo.png";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [signupName, setSignupName] = useState("");
-  const [signupEmail, setSignupEmail] = useState("");
-  const [signupPassword, setSignupPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const toggleForm = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsLogin(!isLogin);
-      setIsAnimating(false);
-    }, 300);
+    setIsLogin(!isLogin);
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+    <div className="min-h-screen bg-[#111812] flex items-center justify-center md:justify-end p-4 md:p-12 lg:p-20 xl:p-28 relative overflow-hidden font-sans">
       <FaboraHeader />
       
-      <div className="pt-28 pb-20 px-4 md:px-8 flex justify-center items-center min-h-[calc(100vh-200px)]">
-        <div className="w-full max-w-md" style={{ perspective: '1000px' }}>
+      {/* Background Illustration Area */}
+      <div className="absolute left-0 top-0 w-full md:w-[65%] h-full flex flex-col items-center justify-center p-8 lg:p-20 z-0">
+        <div className="relative w-full h-full max-w-2xl flex items-center justify-center mt-20 md:mt-0 lg:translate-y-6">
+          <img 
+            src={loginIllustrationDark} 
+            alt="Shopping Illustration" 
+            className="w-full h-auto object-contain transition-transform duration-1000 hover:scale-[1.03]"
+          />
+          {/* Clock decoration similar to messimo */}
+          <div className="absolute top-0 md:top-10 right-0 md:right-10 w-14 h-14 rounded-full border-2 border-white/5 bg-white/5 backdrop-blur-2xl flex items-center justify-center">
+            <div className="w-0.5 h-3.5 bg-white/30 absolute top-3 origin-bottom rotate-45" />
+            <div className="w-0.5 h-2.5 bg-white/30 absolute top-4 origin-bottom -rotate-45" />
+            <div className="w-1.5 h-1.5 bg-white/50 rounded-full z-10" />
+          </div>
+        </div>
+        
+        {/* Decorative ambient elements */}
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 bg-primary/10 rounded-full blur-[140px] animate-pulse" />
+        <div className="absolute bottom-[10%] right-[15%] w-80 h-80 bg-emerald-900/20 rounded-full blur-[160px] animate-pulse" style={{ animationDelay: '3s' }} />
+      </div>
+
+      {/* The floating form card on the right */}
+      <div className="relative z-10 w-full max-w-[480px] h-full flex items-center">
+        <div className="w-full bg-white rounded-[3rem] p-8 md:p-10 lg:p-14 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] border border-white/5 relative transition-all duration-700">
           
-          <div 
-            className="relative transition-all duration-600"
-            style={{
-              transform: !isLogin ? 'rotateY(180deg)' : 'rotateY(0deg)',
-              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-              transformStyle: 'preserve-3d'
-            }}
-          >
-            
-            <div 
-              className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10"
-              style={{ backfaceVisibility: 'hidden' }}
-            >
-              <div className="absolute -top-3 -right-3 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-2xl" />
-              <div className="absolute -bottom-3 -left-3 w-16 h-16 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full blur-xl" />
-              
-              <div className="relative text-center mb-10">
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl mb-4 shadow-lg">
-                  <Sparkles className="w-6 h-6 text-white" />
+          <div className="w-full space-y-8">
+            {/* Logo & Header */}
+            <div className="text-center">
+              <Link to="/" className="inline-block mb-6 group">
+                <img src={mylogo} alt="Fabora" className="h-7 object-contain transition-transform group-hover:scale-105" />
+              </Link>
+              <h1 className="text-[2.5rem] font-semibold tracking-tight text-[#1a1a1a] mb-1.5 leading-[1.1]">
+                {isLogin ? "Welcome back" : "Create account"}
+              </h1>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-3.5">
+              {!isLogin && (
+                <div className="space-y-1">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full name"
+                    className="w-full bg-white border-2 border-[#f5f5f5] rounded-2xl py-3.5 px-6 text-[0.95rem] outline-none transition-all focus:border-emerald-500/30 focus:ring-4 focus:ring-emerald-500/5 placeholder:text-gray-300"
+                    required
+                  />
                 </div>
-                <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">
-                  Welcome Back
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  Sign in to continue your journey
-                </p>
+              )}
+
+              <div className="space-y-1">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email address"
+                  className="w-full bg-white border-2 border-[#f5f5f5] rounded-2xl py-3.5 px-6 text-[0.95rem] outline-none transition-all focus:border-emerald-500/30 focus:ring-4 focus:ring-emerald-500/5 placeholder:text-gray-300"
+                  required
+                />
               </div>
 
-              <form onSubmit={handleLoginSubmit} className="space-y-5 relative">
-                <div className="group">
-                  <label className="text-xs font-medium text-muted-foreground block mb-2 ml-1">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground transition-colors group-focus-within:text-foreground" />
-                    <input
-                      type="email"
-                      value={loginEmail}
-                      onChange={(e) => setLoginEmail(e.target.value)}
-                      className="w-full bg-secondary/50 border-0 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:bg-white transition-all duration-300 placeholder:text-muted-foreground/60"
-                      placeholder="hello@example.com"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="group">
-                  <label className="text-xs font-medium text-muted-foreground block mb-2 ml-1">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground transition-colors group-focus-within:text-foreground" />
-                    <input
-                      type="password"
-                      value={loginPassword}
-                      onChange={(e) => setLoginPassword(e.target.value)}
-                      className="w-full bg-secondary/50 border-0 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:bg-white transition-all duration-300 placeholder:text-muted-foreground/60"
-                      placeholder="••••••••"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-xs">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" className="rounded border-muted" />
-                    <span className="text-muted-foreground">Remember me</span>
-                  </label>
-                  <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Forgot password?
-                  </Link>
-                </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full rounded-xl py-6 text-sm font-medium bg-foreground hover:bg-foreground/90 text-white shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+              <div className="space-y-1 relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  className="w-full bg-white border-2 border-[#f5f5f5] rounded-2xl py-3.5 px-6 text-[0.95rem] outline-none transition-all focus:border-emerald-500/30 focus:ring-4 focus:ring-emerald-500/5 placeholder:text-gray-300"
+                  required
+                />
+                <button 
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-5 top-1/2 -translate-y-1/2 p-2 text-gray-300 hover:text-gray-500 transition-colors"
                 >
-                  Sign In
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </form>
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
 
-              <div className="relative mt-8 text-center">
-                <p className="text-sm text-muted-foreground">
-                  Don't have an account?{" "}
-                  <button
-                    onClick={toggleForm}
-                    className="inline-flex items-center gap-1 text-foreground font-semibold hover:underline underline-offset-4 transition-all duration-300 hover:gap-2"
-                  >
-                    Create Account
-                    <ArrowRight className="w-3 h-3" />
-                  </button>
-                </p>
+              <Button 
+                type="submit" 
+                className="w-full bg-[#add659] hover:bg-[#9cc44d] text-[#1a1a1a] font-bold py-7 rounded-2xl text-[1rem] shadow-lg shadow-[#add659]/10 transition-all border-none mt-6"
+              >
+                {isLogin ? "Log in" : "Create account"}
+              </Button>
+            </form>
+
+            {/* Social Login */}
+            <div className="space-y-6">
+              <div className="relative flex items-center justify-center">
+                <span className="bg-white px-4 text-[0.7rem] text-gray-400 font-bold uppercase tracking-widest z-10 relative">or sign up with</span>
+                <div className="absolute w-full h-[1px] bg-[#f0f0f0]" />
+              </div>
+
+              <div className="flex gap-4 justify-center">
+                <button className="w-14 h-14 flex items-center justify-center rounded-xl bg-[#fafafa] border border-[#f0f0f0] hover:bg-white hover:shadow-sm transition-all focus:ring-2 focus:ring-emerald-500/10">
+                  <Chrome className="w-5 h-5 text-gray-600" />
+                </button>
+                <button className="w-14 h-14 flex items-center justify-center rounded-xl bg-[#fafafa] border border-[#f0f0f0] hover:bg-white hover:shadow-sm transition-all focus:ring-2 focus:ring-emerald-500/10">
+                  <Github className="w-5 h-5 text-gray-600" />
+                </button>
+                <button className="w-14 h-14 flex items-center justify-center rounded-xl bg-[#fafafa] border border-[#f0f0f0] hover:bg-white hover:shadow-sm transition-all focus:ring-2 focus:ring-emerald-500/10">
+                  <svg className="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V21.88C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z" />
+                  </svg>
+                </button>
               </div>
             </div>
 
-            <div 
-              className="absolute inset-0 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10"
-              style={{ 
-                backfaceVisibility: 'hidden',
-                transform: 'rotateY(180deg)'
-              }}
-            >
-              <div className="absolute -top-3 -left-3 w-20 h-20 bg-gradient-to-br from-secondary/30 to-primary/20 rounded-full blur-2xl" />
-              <div className="absolute -bottom-3 -right-3 w-16 h-16 bg-gradient-to-tr from-secondary/20 to-primary/10 rounded-full blur-xl" />
-              
-              <div className="relative text-center mb-10">
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-secondary to-secondary/80 rounded-2xl mb-4 shadow-lg">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-2">
-                  Create Account
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  Join us and start your journey
-                </p>
-              </div>
+            {/* Terms & Footer */}
+            <div className="text-center pt-2">
+              <p className="text-[0.75rem] text-gray-400 font-medium mb-8 leading-relaxed">
+                By creating an account you agree to Fabora's{" "}
+                <Link to="/" className="text-gray-500 hover:text-[#1a1a1a] underline underline-offset-4">Terms of Service</Link> and{" "}
+                <Link to="/" className="text-gray-500 hover:text-[#1a1a1a] underline underline-offset-4">Privacy Policy</Link>.
+              </p>
 
-              <form onSubmit={handleSignupSubmit} className="space-y-4 relative">
-                <div className="group">
-                  <label className="text-xs font-medium text-muted-foreground block mb-2 ml-1">
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground transition-colors group-focus-within:text-foreground" />
-                    <input
-                      type="text"
-                      value={signupName}
-                      onChange={(e) => setSignupName(e.target.value)}
-                      className="w-full bg-secondary/50 border-0 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:bg-white transition-all duration-300 placeholder:text-muted-foreground/60"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="group">
-                  <label className="text-xs font-medium text-muted-foreground block mb-2 ml-1">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground transition-colors group-focus-within:text-foreground" />
-                    <input
-                      type="email"
-                      value={signupEmail}
-                      onChange={(e) => setSignupEmail(e.target.value)}
-                      className="w-full bg-secondary/50 border-0 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:bg-white transition-all duration-300 placeholder:text-muted-foreground/60"
-                      placeholder="hello@example.com"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="group">
-                  <label className="text-xs font-medium text-muted-foreground block mb-2 ml-1">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground transition-colors group-focus-within:text-foreground" />
-                    <input
-                      type="password"
-                      value={signupPassword}
-                      onChange={(e) => setSignupPassword(e.target.value)}
-                      className="w-full bg-secondary/50 border-0 rounded-xl py-3.5 pl-12 pr-4 text-sm outline-none focus:ring-2 focus:ring-foreground/10 focus:bg-white transition-all duration-300 placeholder:text-muted-foreground/60"
-                      placeholder="Create a strong password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <Button 
-                    type="submit" 
-                    className="w-full rounded-xl py-6 text-sm font-medium bg-foreground hover:bg-foreground/90 text-white shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    Create Account
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              </form>
-
-              <div className="relative mt-8 text-center">
-                <p className="text-sm text-muted-foreground">
-                  Already have an account?{" "}
-                  <button
-                    onClick={toggleForm}
-                    className="inline-flex items-center gap-1 text-foreground font-semibold hover:underline underline-offset-4 transition-all duration-300 hover:gap-2"
-                  >
-                    Sign In
-                    <ArrowRight className="w-3 h-3" />
-                  </button>
-                </p>
+              <div className="flex items-center justify-center gap-2 text-[0.95rem]">
+                <span className="text-gray-400 font-medium">{isLogin ? "Don't have an account?" : "Have an account?"}</span>
+                <button
+                  onClick={toggleForm}
+                  className="text-emerald-700 font-bold hover:underline underline-offset-4"
+                >
+                  {isLogin ? "Sign up" : "Log in"}
+                </button>
               </div>
             </div>
           </div>
-          
-          <div className="absolute -top-10 left-1/4 w-2 h-2 bg-primary/30 rounded-full animate-bounce" style={{ animationDuration: '3s' }} />
-          <div className="absolute top-1/2 -right-8 w-3 h-3 bg-secondary/40 rounded-full animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }} />
-          <div className="absolute -bottom-8 left-1/3 w-2 h-2 bg-primary/20 rounded-full animate-bounce" style={{ animationDuration: '5s', animationDelay: '2s' }} />
-          
         </div>
       </div>
-      
-      <Footer />
     </div>
   );
 };

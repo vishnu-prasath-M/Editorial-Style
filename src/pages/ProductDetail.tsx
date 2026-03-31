@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import FaboraHeader from "@/components/FaboraHeader";
 import Footer from "@/components/Footer";
@@ -42,6 +42,11 @@ const ProductDetail = () => {
   const [openSection, setOpenSection] = useState<string | null>("details");
   const [modalOpen, setModalOpen] = useState(false);
   const { addItem } = useCart();
+
+  // Scroll to top when product changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [id]);
   
   const relatedProducts = products.filter(p => p.id !== id && p.category === product?.category).slice(0, 4);
   if (relatedProducts.length < 4) {
@@ -86,7 +91,15 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           <div>
             <div className="aspect-[3/4] bg-secondary overflow-hidden mb-4 rounded-2xl">
-              <img src={product.image} alt={product.name} width={900} height={1200} className="w-full h-full object-cover" />
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                width={900} 
+                height={1200} 
+                className={`w-full h-full object-cover transition-all duration-500 ${
+                  product.colors[selectedColor]?.name === "Black" ? "brightness-[0.35] grayscale-[0.3]" : ""
+                }`}
+              />
             </div>
             <div className="grid grid-cols-4 gap-2">
               {product.colors.map((color, i) => (
@@ -97,7 +110,14 @@ const ProductDetail = () => {
                     selectedColor === i ? "border-foreground" : "border-transparent"
                   }`}
                 >
-                  <img src={product.image} alt={color.name} loading="lazy" className="w-full h-full object-cover" />
+                  <img 
+                    src={product.image} 
+                    alt={color.name} 
+                    loading="lazy" 
+                    className={`w-full h-full object-cover transition-all duration-300 ${
+                      color.name === "Black" ? "brightness-[0.35] grayscale-[0.3]" : ""
+                    }`}
+                  />
                 </button>
               ))}
             </div>
@@ -106,7 +126,7 @@ const ProductDetail = () => {
           <div className="md:pt-8">
             <p className="editorial-subheading mb-2">{product.brand}</p>
             <h1 className="editorial-heading text-3xl md:text-4xl mb-4">{product.name}</h1>
-            <p className="text-lg font-sans mb-8">${product.price}</p>
+            <p className="text-lg font-sans mb-8">₹{product.price}</p>
             <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">{product.description}</p>
 
             <div className="mb-8">

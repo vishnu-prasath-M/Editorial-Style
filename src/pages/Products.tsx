@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import FaboraHeader from "@/components/FaboraHeader";
 import Footer from "@/components/Footer";
@@ -19,16 +19,46 @@ const categories = ["All", "Men", "Women", "Kids", "Accessories"];
 const Products = () => {
   const [searchParams] = useSearchParams();
   const initialCat = searchParams.get("category") || "All";
+  const filterType = searchParams.get("filter") || "";
   const [selectedCategory, setSelectedCategory] = useState(initialCat);
   const [priceRange, setPriceRange] = useState([0, 600]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProductName, setModalProductName] = useState("");
 
-  const filtered = products.filter((p) => {
+  // Update category when URL params change
+  useEffect(() => {
+    const catFromUrl = searchParams.get("category") || "All";
+    setSelectedCategory(catFromUrl);
+  }, [searchParams]);
+
+  // Review counts for rating simulation
+  const reviewCounts: Record<string, number> = {
+    "1": 17, "2": 9, "3": 32, "4": 24, "5": 11, "6": 19,
+    "7": 28, "8": 22, "9": 35, "10": 15, "11": 42, "12": 18,
+    "13": 25, "14": 38, "15": 20, "16": 30, "17": 45, "18": 33,
+    "19": 27, "20": 21, "21": 36, "22": 19, "23": 31, "24": 24,
+    "25": 29, "26": 23, "27": 16, "28": 34, "29": 26, "30": 22,
+    "31": 40, "32": 14, "33": 37, "34": 28, "35": 19, "36": 32,
+    "37": 20, "38": 43, "39": 25, "40": 30, "41": 18, "42": 35,
+    "43": 22, "44": 38, "45": 27, "46": 24,
+  };
+
+  const getProductRating = (productId: string) => {
+    return reviewCounts[productId] || 12;
+  };
+
+  let filtered = products.filter((p) => {
     if (selectedCategory !== "All" && p.category !== selectedCategory) return false;
     if (p.price < priceRange[0] || p.price > priceRange[1]) return false;
     return true;
   });
+
+  // Best Seller filter: low price (under $200) + high rating (high review count)
+  if (filterType === "bestseller") {
+    filtered = filtered
+      .filter((p) => p.price < 200)
+      .sort((a, b) => getProductRating(b.id) - getProductRating(a.id));
+  }
 
   return (
     <div className="min-h-screen">
@@ -77,8 +107,8 @@ const Products = () => {
         <h1 className="editorial-heading text-4xl md:text-6xl mb-4">All Products</h1>
         <p className="text-sm text-muted-foreground font-sans mb-12">{filtered.length} pieces</p>
 
-        <div className="flex flex-col md:flex-row gap-12">
-          <aside className="w-full md:w-56 shrink-0">
+        <div className="flex flex-col md:flex-row gap-12 items-start">
+          <aside className="w-full md:w-56 shrink-0 sticky top-24 self-start">
             <div className="mb-10">
               <h4 className="text-xs uppercase tracking-[0.2em] font-sans mb-4">Category</h4>
               <div className="flex flex-col gap-2">

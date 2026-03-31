@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import saleRack from "@/assets/sale-rack.jpg";
+import saleRack from "@/assets/sale-rack2.png";
 
 const WinterSaleBanner = () => {
   return (
@@ -50,7 +50,7 @@ const WinterSaleBanner = () => {
               loading="lazy"
               width={960}
               height={640}
-              className="w-full h-auto object-cover rounded-xl"
+              className="w-80 h-auto object-cover rounded-xl"
             />
           </div>
         </div>

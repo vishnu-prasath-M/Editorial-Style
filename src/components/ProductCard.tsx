@@ -2,6 +2,7 @@ import { Star, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Product } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -12,11 +13,24 @@ interface ProductCardProps {
 const getOriginalPrice = (price: number) => Math.round(price * 1.35);
 const reviewCounts: Record<string, number> = {
   "1": 17, "2": 9, "3": 32, "4": 24, "5": 11, "6": 19,
-  "7": 14, "8": 27, "9": 8, "10": 21, "11": 15, "12": 30,
+  "7": 28, "8": 22, "9": 35, "10": 15, "11": 42, "12": 18,
+  "13": 25, "14": 38, "15": 20, "16": 30, "17": 45, "18": 33,
+  "19": 27, "20": 21, "21": 36, "22": 19, "23": 31, "24": 24,
+  "25": 29, "26": 23, "27": 16, "28": 34, "29": 26, "30": 22,
+  "31": 40, "32": 14, "33": 37, "34": 28, "35": 19, "36": 32,
+  "37": 20, "38": 43, "39": 25, "40": 30, "41": 18, "42": 35,
+  "43": 22, "44": 38, "45": 27, "46": 24,
 };
+
+const placeholderImage = "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=80";
 
 const ProductCard = ({ product, featured = false, onAddedToCart }: ProductCardProps) => {
   const { addItem } = useCart();
+  const [imgSrc, setImgSrc] = useState(product.image);
+
+  const handleImageError = () => {
+    setImgSrc(placeholderImage);
+  };
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -41,9 +55,10 @@ const ProductCard = ({ product, featured = false, onAddedToCart }: ProductCardPr
         }`}
       >
         <img
-          src={product.image}
+          src={imgSrc}
           alt={product.name}
           loading="lazy"
+          onError={handleImageError}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
 
@@ -90,10 +105,10 @@ const ProductCard = ({ product, featured = false, onAddedToCart }: ProductCardPr
           </h3>
           <div className="flex items-center gap-2 mt-1">
             <span className="font-sans text-sm font-semibold text-foreground">
-              ₹{(product.price * 83).toLocaleString()}
+              ₹{product.price.toLocaleString()}
             </span>
             <span className="font-sans text-xs text-muted-foreground line-through">
-              ₹{(getOriginalPrice(product.price) * 83).toLocaleString()}
+              ₹{getOriginalPrice(product.price).toLocaleString()}
             </span>
           </div>
         </div>

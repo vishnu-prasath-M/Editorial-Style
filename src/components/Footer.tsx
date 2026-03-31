@@ -32,10 +32,19 @@ const Footer = () => {
           <div>
             <h4 className="text-xs uppercase tracking-[0.2em] mb-6 font-sans">Company</h4>
             <div className="flex flex-col gap-3">
-              {["About", "Careers", "Press", "Sustainability"].map((item) => (
-                <span key={item} className="text-sm text-primary-foreground/50 hover:text-primary-foreground transition-colors cursor-pointer font-sans">
-                  {item}
-                </span>
+              {[
+                { label: "About", to: "/about" },
+                { label: "Contact", to: "/contact" },
+                { label: "Press", to: "#" },
+                { label: "Sustainability", to: "#" },
+              ].map((item) => (
+                <Link 
+                  key={item.label} 
+                  to={item.to} 
+                  className="text-sm text-primary-foreground/50 hover:text-primary-foreground transition-colors cursor-pointer font-sans"
+                >
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
