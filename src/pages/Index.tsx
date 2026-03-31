@@ -1,33 +1,31 @@
 import FaboraHeader from "@/components/FaboraHeader";
 import HeroFullImage from "@/components/HeroFullImage";
+import BoldFashionGrid from "@/components/BoldFashionGrid";
 import ProductLooksCarousel from "@/components/ProductLooksCarousel";
-import SignatureCollection from "@/components/SignatureCollection";
 import NewCollectionGrid from "@/components/NewCollectionGrid";
 import WinterSaleBanner from "@/components/WinterSaleBanner";
 import CategoryGrid from "@/components/CategoryGrid";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import NewArrivals from "@/components/NewArrivals";
-import EmbraceComfortStyle from "@/components/EmbraceComfortStyle";
-import WhyChooseUs from "@/components/WhyChooseUs";
 import LookbookGrid from "@/components/LookbookGrid";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <FaboraHeader />
       <main>
         <HeroFullImage />
+        <BoldFashionGrid />
         <ProductLooksCarousel />
-        <SignatureCollection />
         <NewCollectionGrid />
         <WinterSaleBanner />
         <CategoryGrid />
         <NewArrivals />
         <FeaturedProducts />
-        <EmbraceComfortStyle />
-        <WhyChooseUs />
         <LookbookGrid />
+        <WhyChooseUs />
       </main>
       <Footer />
     </div>
