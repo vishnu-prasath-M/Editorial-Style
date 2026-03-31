@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import AddToCartModal from "@/components/AddToCartModal";
 import { products } from "@/data/products";
-import { ShoppingBag, ChevronRight } from "lucide-react";
+import { ShoppingBag, ChevronRight, Search } from "lucide-react";
+import Shopbann from "@/assets/sale-rack2.png";
 
 const sizeOptions = ["XS", "S", "M", "L", "XL"];
 const colorOptions = [
@@ -17,18 +18,22 @@ const colorOptions = [
 const categories = ["All", "Men", "Women", "Kids", "Accessories"];
 
 const Products = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const initialCat = searchParams.get("category") || "All";
   const filterType = searchParams.get("filter") || "";
+  const searchQuery = searchParams.get("search") || "";
   const [selectedCategory, setSelectedCategory] = useState(initialCat);
   const [priceRange, setPriceRange] = useState([0, 600]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProductName, setModalProductName] = useState("");
+  const [localSearch, setLocalSearch] = useState(searchQuery);
 
   // Update category when URL params change
   useEffect(() => {
     const catFromUrl = searchParams.get("category") || "All";
+    const searchFromUrl = searchParams.get("search") || "";
     setSelectedCategory(catFromUrl);
+    setLocalSearch(searchFromUrl);
   }, [searchParams]);
 
   // Review counts for rating simulation
@@ -50,6 +55,14 @@ const Products = () => {
   let filtered = products.filter((p) => {
     if (selectedCategory !== "All" && p.category !== selectedCategory) return false;
     if (p.price < priceRange[0] || p.price > priceRange[1]) return false;
+    // Search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      const matchesName = p.name.toLowerCase().includes(query);
+      const matchesBrand = p.brand.toLowerCase().includes(query);
+      const matchesCategory = p.category.toLowerCase().includes(query);
+      if (!matchesName && !matchesBrand && !matchesCategory) return false;
+    }
     return true;
   });
 
@@ -71,7 +84,7 @@ const Products = () => {
             {/* Left - Realistic Image */}
             <div className="w-full md:w-1/2 h-48 md:h-64 relative overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80" 
+                src={Shopbann} 
                 alt="Wink Collection - Clothes on hangers"
                 className="w-full h-full object-cover"
               />
@@ -104,8 +117,36 @@ const Products = () => {
       </div>
       
       <div className="pt-8 pb-20 px-6 md:px-12 max-w-[1400px] mx-auto">
-        <h1 className="editorial-heading text-4xl md:text-6xl mb-4">All Products</h1>
-        <p className="text-sm text-muted-foreground font-sans mb-12">{filtered.length} pieces</p>
+        {/* Search Bar and Title Row */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          <div>
+            <h1 className="editorial-heading text-4xl md:text-6xl text-left">All Products</h1>
+            <p className="text-sm text-muted-foreground font-sans mt-2">{filtered.length} pieces</p>
+          </div>
+          
+          {/* Search Bar */}
+          <div className="relative w-full md:w-72">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  const newParams = new URLSearchParams(searchParams);
+                  if (localSearch.trim()) {
+                    newParams.set("search", localSearch.trim());
+                  } else {
+                    newParams.delete("search");
+                  }
+                  setSearchParams(newParams);
+                }
+              }}
+              className="w-full pl-10 pr-4 py-2.5 bg-secondary rounded-full text-sm font-sans outline-none focus:ring-1 focus:ring-foreground transition-all"
+            />
+          </div>
+        </div>
 
         <div className="flex flex-col md:flex-row gap-12 items-start">
           <aside className="w-full md:w-56 shrink-0 sticky top-24 self-start">

@@ -43,14 +43,14 @@ const WinterSaleBanner = () => {
           </div>
 
           {/* Right image */}
-          <div className="flex-shrink-0 w-64 md:w-80">
+          <div className="flex-shrink-0 w-64 md:w-80 h-48 md:h-64">
             <img
               src={saleRack}
               alt="Winter collection clothes on rack"
               loading="lazy"
               width={960}
               height={640}
-              className="w-80 h-auto object-cover rounded-xl"
+              className="w-full h-full object-cover object-bottom rounded-xl"
             />
           </div>
         </div>

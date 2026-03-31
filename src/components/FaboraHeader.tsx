@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, ShoppingBag, User } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { products } from "@/data/products";
 import mylogo from "@/assets/mylogo.png";
 
 const FaboraHeader = () => {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const { totalItems } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === "/";
 
   useEffect(() => {
@@ -29,6 +32,29 @@ const FaboraHeader = () => {
       return location.pathname === "/products" && !location.search;
     }
     return location.pathname + location.search === to;
+  };
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      // Find product matching the search query
+      const query = searchQuery.toLowerCase().trim();
+      const matchedProduct = products.find(
+        (p) =>
+          p.name.toLowerCase().includes(query) ||
+          p.brand.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query)
+      );
+
+      if (matchedProduct) {
+        // Navigate to product detail page
+        navigate(`/product/${matchedProduct.id}`);
+      } else {
+        // Navigate to products page with search query
+        navigate(`/products?search=${encodeURIComponent(query)}`);
+      }
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
   };
 
   const showBg = (scrolled || !isHome) && location.pathname !== "/login";
@@ -89,12 +115,20 @@ const FaboraHeader = () => {
                   autoFocus
                   type="text"
                   placeholder="Search Products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearch}
                   className={`bg-transparent text-sm font-sans outline-none w-44 ${
                     showBg
                       ? "text-foreground placeholder:text-muted-foreground"
                       : "text-white placeholder:text-white/50"
                   }`}
-                  onBlur={() => setSearchOpen(false)}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setSearchOpen(false);
+                      setSearchQuery("");
+                    }, 200);
+                  }}
                 />
               </div>
             ) : (
